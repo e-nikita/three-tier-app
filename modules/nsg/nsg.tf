@@ -16,7 +16,7 @@ resource "azurerm_network_security_group" "mydbnsg" {
     location = azurerm_resource_group.myrg.location 
 }
 
-resource "azurerm_network_security_rule" "ports" {
+/*resource "azurerm_network_security_rule" "ports" {
     for_each                    = toset(var.allowed_ports)
     name                        = "allow-${each.value}"
     priority                    = 100 + each.key
@@ -31,4 +31,4 @@ resource "azurerm_network_security_rule" "ports" {
     resource_group_name = azurerm_resource_group.myrg.name
     network_security_group_name = azurerm_network_security_group.mydmznsg
   
-}
+}*/
