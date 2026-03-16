@@ -23,7 +23,7 @@ variable "subnet_id" {
     description = "subnet where nsg will attach"
 }
 
-variable "security_rules" {
+variable "nsg_rules" {
     type = list(object({
       name = string
       priority = number
