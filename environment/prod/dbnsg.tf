@@ -5,9 +5,10 @@ module "db_nsg" {
   location  = var.location
   nsg_name  = "db-nsg"
   subnet_id = module.vnet.db_subnet_id
-  vnet_name = var.vnetname
+  vnet_name = var.vnet_name
+  depends_on = [module.resource_group]
 
-  security_rules = [
+  nsg_rules = [
     {
       name                       = "AllowSQL"
       priority                   = 100
@@ -15,7 +16,7 @@ module "db_nsg" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = "1433"
+      port     = "1433"
       source_address_prefix      = "10.0.2.0/24"
       destination_address_prefix = "*"
     }

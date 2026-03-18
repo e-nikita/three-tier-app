@@ -4,3 +4,11 @@ resource "azurerm_lb" "internal_lb" {
   resource_group_name = var.rg_name
   sku                 = "Standard"
 }
+
+variable "rg_name" {
+    type = string
+}
+
+variable "location" {
+  type = string
+}

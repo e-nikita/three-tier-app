@@ -4,10 +4,11 @@ module "app_nsg" {
   rg_name =  var.resource_group
   location  = var.location
   nsg_name  = "app-nsg"
-  vnet_name = var.vnetname
+  vnet_name = var.vnet_name
   subnet_id = module.vnet.app_subnet_id
+  depends_on = [module.resource_group]
 
-  security_rules = [
+  nsg_rules =  [
     {
       name                       = "AllowHTTP"
       priority                   = 100
@@ -15,7 +16,7 @@ module "app_nsg" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = "80"
+      port    = "80"
       source_address_prefix      = "10.0.1.0/24"
       destination_address_prefix = "*"
     },
@@ -26,7 +27,7 @@ module "app_nsg" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = "443"
+      port     = "443"
       source_address_prefix      = "10.0.1.0/24"
       destination_address_prefix = "*"
     }

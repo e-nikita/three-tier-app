@@ -10,7 +10,24 @@ variable "resource_group" {
 
 variable "location" {
   type = string
+  default = "east us2"
 }
-variable "vnetname" {
+variable "vnet_name" {
     type = string
+    default = "myvnettf"
+}
+
+variable "sql_server_name" {
+  type = string
+  default = "prodsql-servernik1"
+}
+
+variable "sql_admin_username" {
+  type = string
+  default = "dbusername"
+}
+
+variable "sql_admin_password" {
+  type = string
+  default = "password@123"
 }

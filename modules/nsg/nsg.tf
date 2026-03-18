@@ -1,20 +1,22 @@
-resource "azurerm_network_security_group" "myappnsg" {
+# use this nsg config when create hardcoded nsg.
+
+/*resource "azurerm_network_security_group" "myappnsg" {
     name = "app-nsg"
-    resource_group_name = azurerm_resource_group.myrg.name
-    location = azurerm_resource_group.myrg.location 
+    resource_group_name = var.rg_name
+    location = var.location 
 }
 
 resource "azurerm_network_security_group" "mydmznsg" {
     name = "dmz-nsg"
-    resource_group_name = azurerm_resource_group.myrg.name
-    location = azurerm_resource_group.myrg.location 
+    resource_group_name = var.rg_name
+    location = var.location 
 }
 
 resource "azurerm_network_security_group" "mydbnsg" {
     name = "db-nsg"
-    resource_group_name = azurerm_resource_group.myrg.name
-    location = azurerm_resource_group.myrg.location 
-}
+    resource_group_name = var.rg_name
+    location = var.location
+}*/
 
 /*resource "azurerm_network_security_rule" "ports" {
     for_each                    = toset(var.allowed_ports)

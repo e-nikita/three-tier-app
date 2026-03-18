@@ -4,10 +4,11 @@ module "dmz_nsg" {
   rg_name   = var.resource_group
   location  = var.location
   nsg_name  = "dmz-nsg"
-  vnet_name = var.vnetname
+  vnet_name = var.vnet_name
   subnet_id = module.vnet.dmz_subnet_id
+  depends_on = [module.resource_group]
 
-  security_rules = [
+  nsg_rules = [
     {
       name                       = "AllowHTTPS"
       priority                   = 100
@@ -15,7 +16,7 @@ module "dmz_nsg" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = "443"
+      port    = "443"
       source_address_prefix      = "Internet"
       destination_address_prefix = "*"
     }
