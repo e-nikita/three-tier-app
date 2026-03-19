@@ -10,7 +10,7 @@ variable "resource_group" {
 
 variable "location" {
   type = string
-  default = "east us2"
+  default = "westeurope"
 }
 variable "vnet_name" {
     type = string

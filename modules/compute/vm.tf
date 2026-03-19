@@ -3,7 +3,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "app_vmss" {
   name                = "app-vmss"
   location            = var.location
   resource_group_name = var.resource_group
-  sku                 = "Standard_DS1_v2"
+  sku                 = "Standard_D2s_v3"
   instances           = 2
 
   admin_username = "azureuser"
