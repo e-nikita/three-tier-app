@@ -1,0 +1,53 @@
+# ci-cd pipeline for terraform workflow.
+name: terraform pipeline
+on:
+    pull_request:
+    push:
+        branches:
+             - main
+    workflow_dispatch:
+        inputs:
+         branch:
+            description: run workflow
+            type: string
+            default: main
+jobs:
+ terraform:
+    environment: production
+    name: Terraform pipeline
+    runs-on: ubuntu-latest
+    defaults:
+     run:
+      working-directory: environment/prod
+    steps:
+     - name: checkout code
+       uses: actions/checkout@v4
+
+    # login to Azure
+     - name: login to Azure
+       uses: azure/login@v1
+       with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    # setup terraform
+     - name: terraform setup
+       uses: hashicorp/setup-terraform@v3
+
+    # init
+     - name: Terraform initialised
+       run: terraform init
+
+    # plan
+     - name: terraform plan
+       run: terraform plan
+
+    # apply
+     - name: terraform apply
+      #Prevents accidental deployment from other branches
+       if: github.ref == 'ref/head/main'  
+       run: terraform apply --auto-approve
+      
+
+
+
+
