@@ -17,7 +17,7 @@ module "app_nsg" {
       protocol                   = "Tcp"
       source_port_range          = "*"
       port    = "80"
-      source_address_prefix      = "10.0.1.0/24"
+      source_address_prefix      = "10.0.4.0/24"
       destination_address_prefix = "*"
     },
     {
@@ -28,8 +28,19 @@ module "app_nsg" {
       protocol                   = "Tcp"
       source_port_range          = "*"
       port     = "443"
-      source_address_prefix      = "10.0.1.0/24"
+      source_address_prefix      = "10.0.4.0/24"
       destination_address_prefix = "*"
-    }
+    },
+    {
+    name                       = "allow-appgw-probe"
+    priority                   = 111
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    port     = "65200-65535"
+    source_address_prefix      = "GatewayManager"
+    destination_address_prefix = "*"
+  }
   ]
 }

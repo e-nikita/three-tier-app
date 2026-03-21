@@ -17,7 +17,13 @@ module "compute" {
     resource_group = var.resource_group
     location = var.location
     subnet_id = module.vnet.app_subnet_id 
-    depends_on = [module.vnet, module.app_nsg]
+    depends_on = [module.vnet, module.app_nsg, module.database, module.appgateway]
+    backend_pool_id = module.appgateway.backend_pool_id
+
+    db_host     =  module.loadbalancer.internal_lb_ip
+    db_name     = module.database.mssql_db
+    db_username = var.sql_admin_username
+    db_password = var.sql_admin_password
 
 }
 
@@ -37,6 +43,16 @@ module "appgateway" {
     resource_group_name = var.resource_group
     location = var.location
     subnet_id = module.vnet.appgw_subnet
+    depends_on = [ module.vnet ]
   
+}
+
+module "loadbalancer" {
+  source              = "../../modules/loadbalancer"
+  internal_lb =  var.internal_lb
+  resource_group_name = var.resource_group
+  location            = var.location
+  db_subnet_id        = module.vnet.db_subnet_id
+  depends_on          = [module.vnet]
 }
 
