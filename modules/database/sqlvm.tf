@@ -13,22 +13,11 @@ resource "azurerm_mssql_database" "db" {
   sku_name  = "Basic"
 }
 
-variable "resource_group_name" {
-    type = string
+resource "azurerm_mssql_firewall_rule" "allow_azure" {
+  name             = "allow-azure-services"
+  server_id        = azurerm_mssql_server.sql.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }
 
-variable "sql_server_name" {
-  type = string
-}
 
-variable "sql_admin_username" {
-  type = string
-}
-
-variable "sql_admin_password" {
-  type = string
-}
-
-variable "location" {
-  type = string
-}

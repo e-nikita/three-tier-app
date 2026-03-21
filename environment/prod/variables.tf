@@ -31,3 +31,8 @@ variable "sql_admin_password" {
   type = string
   default = "password@123"
 }
+
+variable "internal_lb" {
+  type = string
+  default = "appdbinternal-lb"
+}

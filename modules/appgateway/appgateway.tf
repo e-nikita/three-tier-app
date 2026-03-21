@@ -59,6 +59,7 @@ resource "azurerm_application_gateway" "appgwtf" {
     rule_type = "Basic"
     http_listener_name = "http-listener"
     backend_address_pool_name = "backend-pool"
+    backend_http_settings_name = "http-setting"
     priority = 100
   }
   
