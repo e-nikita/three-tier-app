@@ -44,7 +44,7 @@ jobs:
     # apply
      - name: terraform apply
       #Prevents accidental deployment from other branches
-       if: github.ref == 'ref/head/main'  
+       if: github.ref == 'refs/heads/main'  
        run: terraform apply --auto-approve
       
 
