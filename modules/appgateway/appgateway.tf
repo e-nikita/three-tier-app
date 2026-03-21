@@ -2,8 +2,8 @@ resource "azurerm_public_ip" "appgwip" {
   name = "appgw-ip"
   resource_group_name = var.resource_group_name
   location = var.location
-  allocation_method = "static"
-  sku = "standard"
+  allocation_method = "Static"
+  sku = "Standard"
   
 }
 
@@ -14,7 +14,7 @@ resource "azurerm_application_gateway" "appgwtf" {
 
   sku {
     name = "Standard_v2"
-    tier = "standard_v2"
+    tier = "Standard_v2"
     capacity = 2
   }
 
