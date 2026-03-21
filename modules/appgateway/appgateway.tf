@@ -40,9 +40,9 @@ resource "azurerm_application_gateway" "appgwtf" {
 
   backend_http_settings {
     name = "http-setting"
-    cookie_based_affinity = "disabled"
+    cookie_based_affinity = "Disabled"
     port = 80
-    protocol = "http"
+    protocol = "Http"
     request_timeout = 30
 
   }
@@ -51,7 +51,7 @@ resource "azurerm_application_gateway" "appgwtf" {
     name = "http-listener"
     frontend_ip_configuration_name = "frontend-ip"
     frontend_port_name = "frontend-port"
-    protocol = "http"
+    protocol = "Http"
   }
 
   request_routing_rule {
