@@ -1,27 +1,65 @@
-resource "azurerm_application_gateway" "appgw" {
-  name                = "term-point-appgw"
-  location            = var.location
-  resource_group_name = var.resource_group
+resource "azurerm_public_ip" "appgwip" {
+  name = "appgw-ip"
+  resource_group_name = var.resource_group_name
+  location = var.location
+  allocation_method = "static"
+  sku = "standard"
+  
+}
+
+resource "azurerm_application_gateway" "appgwtf" {
+  name = "appgw-tf"
+  resource_group_name = var.resource_group_name
+  location = var.location
 
   sku {
-    name     = "WAF_v2"
-    tier     = "WAF_v2"
+    name = "Standard_v2"
+    tier = "standard_v2"
     capacity = 2
   }
-}
 
-resource "azurerm_public_ip" "appgw_pip" {
-  name                = "appgw-pip"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
+  gateway_ip_configuration {
+    name = "gateway-ip-config"
+    subnet_id = var.subnet_id
+  }
 
-variable "location" {
-  type = string
-}
+  frontend_port {
+    name = "frontend-port"
+    port = 80
+  }
 
-variable "resource_group" {
-  type = string
+  frontend_ip_configuration {
+    name = "frontend-ip"
+    public_ip_address_id = azurerm_public_ip.appgwip.id
+
+  }
+
+  backend_address_pool {
+    name = "backend-pool"
+  }
+
+  backend_http_settings {
+    name = "http-setting"
+    cookie_based_affinity = "disabled"
+    port = 80
+    protocol = "http"
+    request_timeout = 30
+
+  }
+
+  http_listener {
+    name = "http-listener"
+    frontend_ip_configuration_name = "frontend-ip"
+    frontend_port_name = "frontend-port"
+    protocol = "http"
+  }
+
+  request_routing_rule {
+    name = "routing-rule"
+    rule_type = "Basic"
+    http_listener_name = "http-listener"
+    backend_address_pool_name = "backend-pool"
+    priority = 100
+  }
+  
 }

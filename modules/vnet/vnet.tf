@@ -39,3 +39,11 @@ resource "azurerm_subnet" "dbsubnet" {
     address_prefixes = ["10.0.3.0/24"]
   
 }
+
+resource "azurerm_subnet" "appgwsubnet" {
+    name = "appgwsubnet"
+    virtual_network_name = azurerm_virtual_network.myvnet.name
+    resource_group_name = var.resource_group_name
+    address_prefixes = ["10.0.4.0/24"]
+  
+}

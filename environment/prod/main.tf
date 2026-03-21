@@ -32,3 +32,11 @@ module "database" {
   
 }
 
+module "appgateway" {
+    source = "../../modules/appgateway"
+    resource_group_name = var.resource_group
+    location = var.location
+    subnet_id = module.vnet.appgw_subnet_id
+  
+}
+
