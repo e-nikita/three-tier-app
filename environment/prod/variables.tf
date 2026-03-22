@@ -27,10 +27,10 @@ variable "sql_admin_username" {
   default = "dbusername"
 }
 
-variable "sql_admin_password" {
+/*variable "sql_admin_password" {
   type = string
-  default = "password@123"
-}
+  #default = "password@123"
+}*/
 
 variable "internal_lb" {
   type = string
