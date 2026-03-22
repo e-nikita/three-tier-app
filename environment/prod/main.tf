@@ -23,7 +23,7 @@ module "compute" {
     db_host     =  module.loadbalancer.internal_lb_ip
     db_name     = module.database.mssql_db
     db_username = var.sql_admin_username
-    db_password = var.sql_admin_password
+    db_password = data.azurerm_key_vault_secret.db_password.value
 
 }
 
@@ -33,7 +33,7 @@ module "database" {
     location = "centralindia"
     sql_server_name = var.sql_server_name
     sql_admin_username = var.sql_admin_username
-    sql_admin_password = var.sql_admin_password
+    sql_admin_password = data.azurerm_key_vault_secret.db_password.value
     depends_on = [module.resource_group]
   
 }
